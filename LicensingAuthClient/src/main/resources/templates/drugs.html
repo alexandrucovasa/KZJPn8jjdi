@@ -1,0 +1,18 @@
+<a ui-sref="newDrug" class="btn-primary btn-lg nodecoration">Add New Drug</a>
+<table class="table drugtable">
+    <tr>
+        <td><h3>All Drugs</h3></td>
+        <td></td>
+    </tr>
+    <tr ng-repeat="drug in drugs">
+
+        <td>{{drug.id}}</td>
+        <td>{{drug.drugName}}</td>
+        <td>{{drug.dosage}}</td>
+
+        <td>
+            <a class="btn btn-primary" ui-sref="viewDrug({id:drug.id})">View</a>
+            <a class="btn btn-danger"  ng-click="deleteDrug({id:drug.id}, drug)">Delete</a>
+        </td>
+    </tr>
+</table>

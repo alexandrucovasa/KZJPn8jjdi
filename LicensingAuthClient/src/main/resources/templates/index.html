@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <title>Drugs</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/stylesheets/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/stylesheets/app.css}"/>
+</head>
+<body ng-app="drugApp" ng-controller="mainCtrl">
+
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" ui-sref="drugs">Drugs.inc</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a ui-sref="drugs">Home</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div>
+    <oauth
+            site="http://localhost:8081/LicensingAuthServer"
+            client-id="sampleClientId"
+            redirect-uri="http://localhost:8083/"
+            scope="read write authenticated admin"
+            template="oauthTemp">
+    </oauth>
+</div>
+
+<div class="container">
+    <div class="row top-buffer">
+        <div class="col-xs-8 col-xs-offset-2">
+            <div ui-view=""></div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/resources/lib/angular.min.js}"></script>
+<script th:src="@{/resources/lib/angular-resource.min.js}"></script>
+<script th:src="@{/resources/lib/angular-ui-router.min.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.9/ngStorage.min.js"></script>
+
+<script th:src="@{/resources/oauth-ng.js}"></script>
+
+<script th:src="@{/resources/js/app.js}"></script>
+<script th:src="@{/resources/js/controllers.js}"></script>
+<script th:src="@{/resources/js/services.js}"></script>
+</body>
+</html>
