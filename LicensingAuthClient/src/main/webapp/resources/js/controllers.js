@@ -1,9 +1,22 @@
 angular.module('drugApp.controllers',[])
-.controller('mainCtrl', function($scope,$resource,$http) {
+.controller('mainCtrl', function($scope, $rootScope, $resource,$http, AuthService) {
 
     $scope.$on('oauth:login', function(event, token) {
         $http.defaults.headers.common.Authorization= 'Bearer ' + token.access_token;
         console.log('Authorized third party app with token', token.access_token);
+        console.log(AuthService.parseJwt(token.access_token));
+        AuthService.saveToken(token.access_token);
+
+        $rootScope.isAdmin = AuthService.hasRole("ROLE_ADMIN");
+        $rootScope.isAuthenticated= AuthService.hasRole("ROLE_USER") || AuthService.hasRole("ROLE_ADMIN");
+
+
+        $rootScope.canRead = AuthService.hasPermission("read");
+        $rootScope.canWrite = AuthService.hasPermission("write");
+
+
+        $rootScope.roles = AuthService.getUserRoles();
+        $rootScope.permissions = AuthService.getUserPermissions();
     });
 }).controller('DrugListController',function($scope,$state,$stateParams, popupService,$window,Drug){
 
@@ -11,8 +24,9 @@ angular.module('drugApp.controllers',[])
 
     $scope.deleteDrug = function(id, drug){
         if(popupService.showPopup('Confirm delete')){
-            drug.$delete({id:id},function() {
-                $window.location.href='';
+            drug.$delete({id:id.id},function() {
+                $scope.drugs=Drug.query();
+                $state.go('drugs');
             });
         };
     }

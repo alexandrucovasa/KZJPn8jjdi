@@ -71,7 +71,7 @@ public class DrugController {
     @RequestMapping(method = RequestMethod.DELETE, value = "/drugs/{id}")
     @ResponseBody
     public void delete(@PathVariable final String id) {
-
+        System.out.println(id);
 
         drugs.remove(id);
     }
