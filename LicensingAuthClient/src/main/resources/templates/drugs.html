@@ -12,7 +12,7 @@
 
         <td>
             <a class="btn btn-primary" ui-sref="viewDrug({id:drug.id})" >View</a>
-            <a class="btn btn-primary" ui-sref="editDrug({id:drug.id})" ng-show="isAuthenticated">Edit</a>
+            <a class="btn btn-success" ui-sref="editDrug({id:drug.id})" ng-show="isAuthenticated">Edit</a>
             <a class="btn btn-danger"  ng-click="deleteDrug({id:drug.id}, drug)" ng-show="isAdmin">Delete</a>
         </td>
     </tr>
