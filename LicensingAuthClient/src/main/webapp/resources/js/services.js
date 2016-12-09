@@ -1,5 +1,5 @@
 angular.module('drugApp.services',[]).factory('Drug',function($resource){
-    return $resource('http://localhost:8082/LicensingAuthResource/drugs/:id',{id:'@_id'},{
+    return $resource('http://localhost:8084/LicensingAuthResource/drugs/:id',{id:'@_id'},{
         update: {
             method: 'PUT'
         },
