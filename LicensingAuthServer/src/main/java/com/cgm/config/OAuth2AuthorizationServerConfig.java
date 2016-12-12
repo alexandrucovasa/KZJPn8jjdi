@@ -87,15 +87,4 @@ public class OAuth2AuthorizationServerConfig implements AuthorizationServerConfi
     public TokenEnhancer tokenEnhancer() {
         return new GgmCustomTokenEnhancer();
     }
-
-//    @Bean
-//    public DefaultTokenServices tokenServices() {
-//
-//        final DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
-//        defaultTokenServices.setTokenStore(tokenStore());
-//        defaultTokenServices.setSupportRefreshToken(true);
-//        defaultTokenServices.setTokenEnhancer(tokenEnhancer());
-//
-//        return defaultTokenServices;
-//    }
 }

@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Created by alexandruiulian.cova on 12/6/2016.
+ * Created by Alexandru Covasa.
  */
 public class UserInfoRowMapper implements RowMapper {
 

@@ -1,7 +1,7 @@
 package com.cgm.config.authentication;
 
 /**
- * Created by alexandruiulian.cova on 12/6/2016.
+ * Created by Alexandru Covasa.
  */
 public class UserInfo {
 

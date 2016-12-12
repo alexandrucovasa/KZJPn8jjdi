@@ -1,7 +1,10 @@
 package com.cgm.config.controller;
 
 import com.cgm.config.token.CgmTokenStore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.support.StaticListableBeanFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -16,18 +19,20 @@ import java.util.List;
 
 @Controller
 public class LicenceController {
+    private static final Logger logger = LoggerFactory.getLogger(LicenceController.class);
+
 
     @Autowired
     CgmTokenStore cgmTokenStore;
 
     @GetMapping("/licence/{clientid}/{username}")
     @ResponseBody
-    public ResponseEntity<File> getLicence(@PathVariable String clientid, @PathVariable String username) {
+    public ResponseEntity<File> getLicence(@PathVariable String clientId, @PathVariable String username) {
 
         //TODO extract data and create a file
         File f = new File("licence.txt");
 
-        Collection<OAuth2AccessToken> oAuth2AccessTokens = cgmTokenStore.findTokensByClientIdAndUserName(clientid, username);
+        Collection<OAuth2AccessToken> oAuth2AccessTokens = cgmTokenStore.findTokensByClientIdAndUserName(clientId, username);
 
         //serialize the List
         try (
@@ -60,15 +65,11 @@ public class LicenceController {
             List<OAuth2AccessToken> oAuth2AccessTokens = (List<OAuth2AccessToken>) input.readObject();
             //display its data
             for (OAuth2AccessToken oAuth2AccessToken : oAuth2AccessTokens) {
-                System.out.println("Recovered data: ");
-                System.out.println(oAuth2AccessToken.getValue());
-                System.out.println(oAuth2AccessToken.getExpiration());
-                System.out.println(oAuth2AccessToken.getExpiresIn());
-                System.out.println(oAuth2AccessToken.getScope());
-                System.out.println(oAuth2AccessToken.getTokenType());
+                logger.debug("Recovered data: ");
+                logger.debug(oAuth2AccessToken.getValue());
+                logger.debug(oAuth2AccessToken.getTokenType());
             }
-        } catch (ClassNotFoundException ex) {
-        } catch (IOException ex) {
+        } catch (ClassNotFoundException | IOException ex) {
         }
 
         return "redirect:/";

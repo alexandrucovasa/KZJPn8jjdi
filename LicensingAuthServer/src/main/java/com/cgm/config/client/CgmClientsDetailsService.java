@@ -14,22 +14,7 @@ import javax.sql.DataSource;
  */
 
 @Service
-public class CgmClientsDetailsService  implements ClientDetailsService {
-
-    private JdbcTemplate jdbcTemplate;
-
-    @Override
-    public ClientDetails loadClientByClientId(String s) throws ClientRegistrationException {
-
-        ClientDetails clientDetails = (ClientDetails)jdbcTemplate.queryForObject(SELECT_STATEMENT, new Object[] {s}, new CgmClientDetailsRowMapper());
-        return clientDetails;
-    }
-
-    public CgmClientsDetailsService(DataSource dataSource) {
-        jdbcTemplate = new JdbcTemplate(dataSource);
-    }
-
-
+public class CgmClientsDetailsService implements ClientDetailsService {
 
     private static final String CLIENT_FIELDS_FOR_UPDATE = " resource_ids, scope, "
             + "authorized_grant_types, WEB_SERVER_REDIRECT_URI, authorities, access_token_validity, "
@@ -54,5 +39,16 @@ public class CgmClientsDetailsService  implements ClientDetailsService {
             + "set client_secret = ? where client_id = ?";
 
     private static final String DELETE_STATEMENT = "delete from cgm_client_details where client_id = ?";
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    @Override
+    public ClientDetails loadClientByClientId(String clientId) throws ClientRegistrationException {
+
+        ClientDetails clientDetails = (ClientDetails) jdbcTemplate.queryForObject(SELECT_STATEMENT, new Object[]{clientId}, new CgmClientDetailsRowMapper());
+        return clientDetails;
+    }
+
 
 }

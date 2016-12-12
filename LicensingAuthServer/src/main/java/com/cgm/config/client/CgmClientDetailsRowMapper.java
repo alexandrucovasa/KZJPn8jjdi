@@ -1,6 +1,8 @@
 package com.cgm.config.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.oauth2.provider.client.BaseClientDetails;
 import org.springframework.util.StringUtils;
@@ -14,6 +16,7 @@ import java.util.Map;
  * Created by alexandruiulian.cova on 12/6/2016.
  */
 public class CgmClientDetailsRowMapper implements RowMapper {
+    private static final Logger logger = LoggerFactory.getLogger(CgmClientDetailsRowMapper.class);
 
     @Override
     public Object mapRow(ResultSet rs, int i) throws SQLException {
@@ -32,8 +35,8 @@ public class CgmClientDetailsRowMapper implements RowMapper {
             try {
                 Map<String, Object> jsonObject = new ObjectMapper().readValue(json, Map.class);
                 details.setAdditionalInformation(jsonObject);
-            }
-            catch (Exception e){
+            } catch (Exception e) {
+                logger.warn("Invalid additional information found for: " + details.getClientId());
                 details.setAdditionalInformation(new HashMap<>());
             }
         }
