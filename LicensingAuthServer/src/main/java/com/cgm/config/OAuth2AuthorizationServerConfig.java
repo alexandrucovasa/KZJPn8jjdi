@@ -61,7 +61,6 @@ public class OAuth2AuthorizationServerConfig implements AuthorizationServerConfi
                 .accessTokenConverter(accessTokenConverter())
                 .tokenEnhancer(tokenEnhancerChain)
 
-                //.tokenServices(tokenServices())
 
                 .authenticationManager(authenticationManager)
 
