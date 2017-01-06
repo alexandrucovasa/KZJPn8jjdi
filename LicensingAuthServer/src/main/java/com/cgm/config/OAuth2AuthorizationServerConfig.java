@@ -65,6 +65,7 @@ public class OAuth2AuthorizationServerConfig implements AuthorizationServerConfi
                 .authenticationManager(authenticationManager)
 
                 .authorizationCodeServices(new JdbcAuthorizationCodeServices(dataSource))
+                // Tigger build
                 //// TODO: 12/7/2016 Create new approval store
                 .approvalStore(new JdbcApprovalStore(dataSource));
     }
